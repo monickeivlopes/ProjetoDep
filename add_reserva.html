@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Reserva</title>
+    <link rel="stylesheet" href="static/add_reserva.css">
+</head>
+<body>
+    <div class="container">
+        <div class="head">
+            <h1>Adicionar nova reserva</h1>
+            <a href="{{ url_for('reservas') }}">Voltar</a>
+            </div>
+            <p style="color: red;">{{flash}}</p>
+    
+    <form method="POST" action="{{ url_for('add_reserva') }}">
+        <br>
+        <label for="hospede_id">Hóspede:</label>
+        <select name="hos_id" id="hospede_id" required>
+            {% for hospede in hospedes %}
+            <option value="{{ hospede[0] }}">{{ hospede[1] }}</option>
+            {% endfor %}
+        </select>
+        <label for="quarto_id">Quarto:</label>
+        <select name="quarto_id" id="quarto_id" required>
+            {% for quarto in quartos %}
+            <option value="{{ quarto[0] }}">{{ quarto[1] }}</option>
+            {% endfor %}
+        </select>
+    
+        <label for="checkin">Data de Check-In:</label>
+        <input type="date" name="checkin" id="checkin" required>
+    
+        <label for="checkout">Data de Check-Out:</label>
+        <input type="date" name="checkout" id="checkout" required>
+    
+        <button type="submit">Salvar</button>
+    </form>
+    </div>
+    
+    
+</body>
+</html>
