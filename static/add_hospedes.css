@@ -1,0 +1,137 @@
+:root {
+    --cor-primaria: #020202;  
+    --cor-secundaria: #808080;
+    --cor-texto: #ffffff;
+    --cor-fundo: #e9ecef; 
+    --cor-hover: #616161; 
+    --cor-acento: #222222;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-secundaria);
+    line-height: 1.6;
+}
+
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 17px;
+    background-color: var(--cor-texto);
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(185, 180, 180, 0.795);
+    text-align: center;
+}
+
+
+.container h1 {
+    font-size: 2rem;
+    color: var(--cor-primaria);
+    margin-bottom: 20px;
+}
+
+
+
+
+.container a:hover {
+    background-color: var(--cor-hover);
+    transform: scale(1.05);
+}
+
+.container label {
+    color: var(--cor-primaria);
+}
+.container p {
+    color: red;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin-left: 5%;
+}
+.head a {
+    display: inline-block;
+    margin-bottom: 20px;
+    margin-top:20px ;
+    padding: 10px 20px;
+    background-color: var(--cor-secundaria);
+    color: var(--cor-texto);
+    text-decoration: none;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 10%;
+    height: 5%;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 5px;
+    color: var(--cor-secundaria);
+}
+
+input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid var(--cor-secundaria);
+    border-radius: 8px;
+    background-color: var(--cor-fundo);
+    color:var(--cor-hover);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    box-shadow: 0px 0px 4px var(--cor-primaria);
+}
+
+
+button {
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto);
+    border: none;
+    padding: 10px 10px;
+    font-size: 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    height: 60px;
+    width: 590px;
+}
+
+button:hover {
+    background-color: var(--cor-acento);
+    color: var(--cor-secundaria);
+    transform: scale(1.05);
+}
+
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    form {
+        gap: 10px;
+    }
+
+    button {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}

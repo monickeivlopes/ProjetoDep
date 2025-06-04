@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quartos mais reservados</title>
+    <style>
+        :root {
+            --cor-primaria: #020202;  
+            --cor-secundaria: #808080;
+            --cor-texto: #ffffff;
+            --cor-fundo: #e9ecef; 
+            --cor-hover: #616161; 
+            --cor-acento: #222222;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-secundaria);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--cor-primaria);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--cor-secundaria);
+            margin-bottom: 15px;
+        }
+
+
+        a {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: var(--cor-secundaria);
+            color: var(--cor-texto);
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        a:hover {
+            background-color: var(--cor-hover);
+            transform: scale(1.05);
+        }
+
+
+        table {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 20px;
+            border-collapse: collapse;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: var(--cor-texto);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid var(--cor-secundaria);
+            font-size: 1rem;
+        }
+
+        th {
+            background-color: var(--cor-primaria);
+            color: var(--cor-texto);
+        }
+
+        td {
+            background-color: var(--cor-fundo);
+            color: var(--cor-secundaria);
+        }
+
+        tr:hover {
+            background-color: var(--cor-acento);
+            color: var(--cor-secundaria);
+        }
+        .head{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 60%;
+            margin-left: 5%;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="head"><h1>Quartos mais reservados nos últimos {{dias}} dias</h1>
+        <a href="{{ url_for('relatorios') }}">Voltar</a></div>
+    
+    <h3>10 quartos mais reservados:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Total de reservas</th>
+                <th>Número do quarto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for total in totais %}
+            <tr> <br>
+                <td>{{ total[1] }}</td> 
+                <td>{{ total[0] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quartos não reservados</title>
+
+    <style>
+     
+        :root {
+            --cor-primaria: #020202;  
+            --cor-secundaria: #808080;
+            --cor-texto: #ffffff;
+            --cor-fundo: #e9ecef; 
+            --cor-hover: #616161; 
+            --cor-acento: #222222;
+        }
+
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-secundaria);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--cor-primaria);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        a {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: var(--cor-secundaria);
+            color: var(--cor-texto);
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        a:hover {
+            background-color: var(--cor-hover);
+            transform: scale(1.05);
+        }
+
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        ul li {
+            background-color: var(--cor-texto);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        ul li p {
+            color: var(--cor-primaria);
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .head{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 50%;
+            margin-left: 5%;
+        }
+        
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            ul li {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="head">
+        <h1>Quartos não reservados:</h1>
+        <a href="{{ url_for('relatorios') }}">Voltar</a>
+    </div>
+    <ul>
+        {% for total in totais %}
+        <li><p>Quarto: {{total[0]}}</p></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

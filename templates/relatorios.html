@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios Avançados</title>
+    <style>
+        :root {
+            --cor-primaria: #020202;  
+            --cor-secundaria: #808080;
+            --cor-texto: #ffffff;
+            --cor-fundo: #e9ecef; 
+            --cor-hover: #616161; 
+            --cor-acento: #222222;
+        }
+
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-secundaria);
+            line-height: 1.6;
+            
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--cor-primaria);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--cor-secundaria);
+            margin-bottom: 15px;
+        }
+
+
+        form {
+            background-color: var(--cor-texto);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 80%;
+        }
+
+        form p {
+            margin: 10px 0;
+            color: var(--cor-primaria);
+        }
+
+        input, select, button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            border: 1px solid var(--cor-secundaria);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        button {
+            width:10%;
+            background-color: var(--cor-primaria);
+            color: var(--cor-texto);
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .menu {
+            display: flex;
+            justify-content: center;
+            background-color: var(--cor-primaria);
+            padding: 15px 0;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .menu a {
+            color: var(--cor-texto);
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 0 15px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            padding: 8px 15px;
+            border-radius: 30px;
+            background-color: var(--cor-hover);
+        }
+        
+        .menu a:hover {
+            background-color: var(--cor-acento);
+            color: var(--cor-secundaria);
+            transform: scale(1.1);
+        }
+
+        button:hover {
+            background-color: var(--cor-acento);
+            transform: scale(1.05);
+        }
+
+        a {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--cor-secundaria);
+            color: var(--cor-texto);
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-bottom: 20px;
+        }
+
+        a:hover {
+            background-color: var(--cor-hover);
+            transform: scale(1.05);
+        }
+
+        #data1, #data2 {
+            width: 96%;
+        }
+        .head{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-left:25%;
+        width: 50%;
+        
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            form {
+                width: 100%;
+                padding: 15px;
+            }
+
+            input, select, button {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <a href="{{ url_for('hospedes') }}">Hóspedes</a>
+        <a href="{{ url_for('quartos') }}">Hospedagens</a>
+        <a href="{{ url_for('reservas') }}">Reservas</a>
+
+    </div>
+    <div class="head"><h1>Relatórios Avançados</h1>
+        <a href="{{ url_for('reservas') }}">Voltar</a></div>
+    
+    <br>
+    <div class="container">
+        <div>
+            <h3>Total de reservas por hóspede:</h3>
+            <form action="{{url_for('total_reservas')}}" method="post">
+                <p>Périodo:</p>
+                <label for="data1">De</label>
+                <input type="date" id="data1" name="data1">
+                <label for="data1">Até</label>
+                <input type="date" id="data2" name="data2">
+                <button>Ver</button>
+            </form>
+        </div>
+        <br><br>
+        <div>
+            <h3>Hóspedes com reservas acima de R$2000,00:</h3>
+            <form action="{{url_for('reservas_acima')}}" method="post">
+                <button>Ver</button>
+            </form>
+        </div>
+        <br><br>
+        <div>
+            <h3>Quartos mais reservados</h3>
+            <form action="{{url_for('quartos_reservados')}}" method="post">
+                <p>Périodo:</p>
+                <label for="tempo">Nos últimos</label>
+                <select name="tempo" id="tempo">
+                    <option type='number' value="7">7 dias</option>
+                    <option type='number' value="30">30 dias</option>
+                    <option type='number' value="60">60 dias</option>
+                    <option type='number' value="90">90 dias</option>
+                </select>
+                <button>Ver</button>
+            </form>
+        </div>
+        <br><br>
+        <div>
+            <h3>Quartos não reservados:</h3>
+            <form action="{{url_for('nao_reservados')}}" method="post">
+                <button>Ver</button>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

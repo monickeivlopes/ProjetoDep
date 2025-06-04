@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Hóspedes</title>
+    <link rel="stylesheet" href="static/hospede.css">
+<body>
+    <div class="menu">
+        <a href="{{ url_for('hospedes') }}">Hóspedes</a>
+        <a href="{{ url_for('quartos') }}">Hospedagens</a>
+        <a href="{{ url_for('reservas') }}">Reservas</a>
+
+    </div>
+    <div class="container">
+        <div class="head">
+            <h1>Gerenciamento de Hóspedes</h1>
+            <a href="{{ url_for('index') }}">Página Inicial</a>
+            </div>
+        
+
+        <form method="GET" action="{{ url_for('hospedes') }}">
+            <label for="nome">Filtrar por nome (ou inicial):</label>
+            <input type="text" name="nome" id="nome" placeholder="Nome ou inicial do hóspede" value="{{ request.args.get('nome', '') }}">
+            
+        </br>
+            <label for="ordenar">Ordenar por nome:</label><br>
+            <select name="ordenar" id="ordenar">
+                <option value="asc" {% if request.args.get('ordenar') == 'asc' %}selected{% endif %}>Crescente</option>
+                <option value="desc" {% if request.args.get('ordenar') == 'desc' %}selected{% endif %}>Decrescente</option>
+            </select>
+            
+            <button type="submit">Filtrar</button>
+            
+        </form>
+        <div><a id="adicionar" href="/add_hospede">Adicionar Hóspede</a></div>
+        <table>
+            
+            <thead>
+                <tr>
+                    <th>ID</th> 
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for hospede in hospedes %}
+                <tr>
+                    <td>{{ hospede[0] }}</td> 
+                    <td>{{ hospede[1] }}</td>
+                    <td>{{ hospede[2] }}</td>
+                    <td>{{ hospede[3] }}</td>
+                    <td>{{ hospede[4] }}</td>
+                    <td>
+                        <a href="/edit_hospede/{{ hospede[0] }}" >Editar</a>
+                        <a href="{{ url_for('excluir_hospede', id=hospede[0]) }}" onclick="return confirm('Tem certeza que deseja excluir este hóspede?');">Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
