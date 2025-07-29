@@ -180,3 +180,7 @@ def add_hospede():
         return render_template('quartos.html')
     else:
         return render_template('add_hospedes.html')   
+
+
+#falta:
+#editar e excluir hospede -- rotas de quartos -- rotas de reserva -- rotas relatório 

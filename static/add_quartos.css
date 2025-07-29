@@ -121,17 +121,3 @@ button:hover {
 }
 
 
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-
-    form {
-        gap: 10px;
-    }
-
-    button {
-        padding: 10px 15px;
-        font-size: 0.9rem;
-    }
-}

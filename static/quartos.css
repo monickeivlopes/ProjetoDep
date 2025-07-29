@@ -184,20 +184,3 @@ a:hover {
     color: var(--cor-acento);
 }
 
-@media (max-width: 768px) {
-    .container {
-        width: 90%;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    table {
-        font-size: 0.9rem;
-    }
-
-    th, td {
-        padding: 10px;
-    }
-}
