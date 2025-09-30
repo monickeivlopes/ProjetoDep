@@ -1,6 +1,9 @@
 from flask import Flask, render_template, redirect, request, url_for, flash
 from flask_mysqldb import MySQL
 from datetime import datetime
+from flask import session
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 
 app = Flask(__name__)
@@ -18,6 +21,62 @@ app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'db_projetoHotel'
 
 mysql = MySQL(app)
+
+#cadastro
+@app.route('/cadastro', methods=['GET', 'POST'])
+def cadastro():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        email = request.form['email']
+        senha = request.form['senha']
+        senha_hash = generate_password_hash(senha)
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM usuarios WHERE email = %s", (email,))
+        existing_user = cur.fetchone()
+        if existing_user:
+            flash('Este e-mail já está cadastrado.', 'danger')
+            return redirect(url_for('cadastro'))
+
+        cur.execute("INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s, %s)", (nome, email, senha_hash))
+        mysql.connection.commit()
+        cur.close()
+
+        flash('Cadastro realizado com sucesso! Faça o login.', 'success')
+        return redirect(url_for('login'))
+
+    return render_template('cadastro.html')
+
+#login
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        senha = request.form['senha']
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM usuarios WHERE email = %s", (email,))
+        user = cur.fetchone()
+        cur.close()
+
+        if user and check_password_hash(user[3], senha):  # assumindo que senha é a 4ª coluna
+            session['usuario'] = user[0]  # salva o id do usuário na sessão
+            flash('Login realizado com sucesso!', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash('E-mail ou senha inválidos.', 'danger')
+            return redirect(url_for('login'))
+
+    return render_template('login.html')
+
+#logout 
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('Você saiu da sessão.', 'info')
+    return redirect(url_for('login'))
+
+
 
 #página de hospedes
 @app.route('/hospedes', methods=['GET'])
@@ -172,8 +231,9 @@ def excluir_quarto(id):
 #página de reservas
 @app.route('/reservas', methods=['GET', 'POST'])
 def reservas():
-    checkin_filter = request.form.get('checkin_filter')  
-    ordem = request.form.get('ordem', 'asc')  
+    checkin_filter = request.values.get('checkin_filter')
+    ordem = request.values.get('ordem', 'asc')
+
 
     cur = mysql.connection.cursor()
     
@@ -288,9 +348,6 @@ def excluir_reserva(id):
     flash('Reserva excluída com sucesso!')
     return redirect(url_for('reservas'))
 
-if __name__ == '__main__':
-    app.run(debug=True)  
-
 #página dos relátorios avançados
 @app.route('/relatorios')
 def relatorios():
@@ -307,7 +364,7 @@ def total_reservas():
     if request.method=='POST':
         data1 = request.form['data1']
         data2 = request.form['data2']
-        cur = mysql.connect.cursor()
+        cur = mysql.connection.cursor()
         cur.execute('SELECT nome, SUM(total) FROM hospede as h JOIN reserva as r ON h.id=r.hos_id WHERE checkin BETWEEN %s and %s GROUP BY nome ',(data1,data2))
         totais = cur.fetchall()
         cur.close()
@@ -318,7 +375,7 @@ def total_reservas():
 #página para relátorio de reservas acima de 2000,00
 @app.route('/reservas_acima', methods=['GET','POST'])
 def reservas_acima():
-    cur = mysql.connect.cursor()
+    cur = mysql.connection.cursor()
     cur.execute("SELECT nome, total FROM hospede as h JOIN reserva as r ON h.id = r.hos_id WHERE total>='2000' ")
     totais = cur.fetchall()
     cur.close()
@@ -329,7 +386,7 @@ def reservas_acima():
 def quartos_reservados():
      if request.method=='POST':
         dias = request.form['tempo']
-        cur = mysql.connect.cursor()
+        cur = mysql.connection.cursor()
         dias = int(dias)  
         query = '''
         SELECT numero, COUNT(r.quarto_id) AS quartos
@@ -347,7 +404,7 @@ def quartos_reservados():
 #página para relátorio de quartos não reservados
 @app.route('/nao_reservados', methods=['GET','POST'])
 def nao_reservados():
-    cur = mysql.connect.cursor()
+    cur = mysql.connection.cursor()
     query = '''
         SELECT q.numero FROM quarto as q
         WHERE q.id NOT IN (SELECT r.quarto_id FROM reserva r)
@@ -360,3 +417,10 @@ def nao_reservados():
         return render_template('nao_reservados.html',totais=totais)
     return render_template('nao_reservados.html',totais=totais)
 
+
+
+
+#rodar 
+
+if __name__ == '__main__':
+    app.run(debug=True)
