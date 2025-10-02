@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
-    role VARCHAR(10) NOT NULL DEFAULT 'USR', -- USR = usuário normal, ADM = administrador
+    role VARCHAR(10) NOT NULL DEFAULT 'USR', 
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

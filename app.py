@@ -92,9 +92,9 @@ def login():
         user = cur.fetchone()
         cur.close()
 
-        if user and check_password_hash(user[3], senha):  # senha é 4ª coluna
-            session['usuario'] = user[0]  # id do usuário
-            session['usuario_role'] = user[4]  # role do usuário
+        if user and check_password_hash(user[3], senha):  
+            session['usuario'] = user[0]  
+            session['usuario_role'] = user[4]  
             flash('Login realizado com sucesso!', 'success')
             return redirect(url_for('index'))
         else:

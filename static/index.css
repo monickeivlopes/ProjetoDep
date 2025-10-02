@@ -107,4 +107,20 @@ img{
     background-color: black;
 }
 
+.btn-header {
+    background-color: var(--cor-hover);
+    color: var(--cor-texto);
+    padding: 8px 16px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 1rem;
+    margin: 0 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-header:hover {
+    background-color: var(--cor-acento);
+    color: var(--cor-secundaria);
+    transform: scale(1.05);
+}
 

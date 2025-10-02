@@ -76,7 +76,7 @@ h1 {
     border: 1px solid var(--cor-secundaria);
     border-radius: 8px;
     background-color: var(--cor-fundo);
-    color: var(--cor-secundaria);
+    color: var(--cor-acento);
     width: 90%;
 }
 

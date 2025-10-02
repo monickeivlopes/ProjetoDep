@@ -91,7 +91,7 @@ select, input {
     border: 1px solid var(--cor-secundaria);
     border-radius: 8px;
     background-color: var(--cor-fundo);
-    color:white;
+    color: var(--cor-acento);
     margin-bottom: 10px;
 }
 
