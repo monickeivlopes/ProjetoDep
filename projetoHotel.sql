@@ -61,3 +61,12 @@ CREATE TABLE IF NOT EXISTS reserva_quarto (
 UPDATE usuarios
 SET senha = 'scrypt:32768:8:1$36c3jIiYdg0KlgHI$6e657af89c5ab4d40594665d83c633eb5112fdff533bf647bd09511d15c0728e3adf50e486723c076aa720ae69d495ec458d06c838839096359ba4f0dff2dd8a'
 WHERE email = 'admin@hotel.com';
+
+CREATE TABLE notificacoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    mensagem VARCHAR(255),
+    lida BOOLEAN DEFAULT FALSE,
+    data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);

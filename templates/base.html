@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}The Hotelaria{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="header">
+        <h1>The Hotelaria</h1>
+        <p>Bem-vindo ao melhor sistema de hóteis!</p>
+
+        {% if session.get('user_nome') %}
+            <p>Olá, {{ session['user_nome'] }} | <a href="{{ url_for('logout') }}">Sair</a></p>
+        {% else %}
+            <p>
+                <a href="{{ url_for('login') }}" class="btn-header">Login</a> |
+                <a href="{{ url_for('cadastro') }}" class="btn-header">Cadastro</a>
+            </p>
+        {% endif %}
+    </div>
+
+
+    <div class="menu">
+        <a href="{{ url_for('hospedes') }}">Hóspedes</a>
+        <a href="{{ url_for('quartos') }}">Hospedagens</a>
+        <a href="{{ url_for('reservas') }}">Reservas</a>
+    </div>
+
+
+    {% with mensagens = get_flashed_messages(with_categories=True) %}
+      {% if mensagens %}
+        <div class="container mt-3">
+          {% for categoria, msg in mensagens %}
+            <div class="alert alert-{{ categoria }} alert-dismissible fade show" role="alert">
+              {{ msg }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+
+    {% if session.get('notificacoes') %}
+      <div class="container mt-2">
+        {% for n in session['notificacoes'] %}
+          <div class="alert alert-info alert-dismissible fade show" role="alert">
+            {{ n[2] }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

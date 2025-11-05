@@ -3,6 +3,7 @@ from flask_mysqldb import MySQL
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
+from flask_mail import Mail, Message
 
 
 hash_senha = generate_password_hash("admin123")
@@ -12,6 +13,8 @@ print(hash_senha)
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'senhadoprojeto'
 
+from flask_mail import Mail, Message
+
 # Configuração do banco
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
@@ -20,7 +23,20 @@ app.config['MYSQL_DB'] = 'db_projetoHotel'
 
 mysql = MySQL(app)
 
-# ----------------- DECORATORS -----------------
+# --- Configuração pra enviar os emails ---
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587  
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USERNAME'] = 'lopes.monicke@escolar.ifrn.edu.br'
+app.config['MAIL_PASSWORD'] = 'cczfwloxqyyaiuxd'  
+app.config['MAIL_DEFAULT_SENDER'] = ('The Hotelaria', 'lopes.monicke@escolar.ifrn.edu.br')
+
+mail = Mail(app)
+
+
+
+# ----------------- DECORADORES -----------------
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -69,10 +85,25 @@ def cadastro():
             cur.close()
             return redirect(url_for('cadastro'))
 
-        # Role padrão: USR
+
         cur.execute("INSERT INTO usuarios (nome, email, senha, role) VALUES (%s, %s, %s, %s)",
                     (nome, email, senha_hash, 'USR'))
         mysql.connection.commit()
+
+        enviar_email(
+            destinatario=email,
+            assunto="Bem-vindo ao Sistema do Hotel!",
+            corpo=f"Olá, {nome}!\n\nSeu cadastro foi realizado com sucesso.\nAproveite o sistema de reservas!"
+        )
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT id FROM usuarios WHERE email = %s", (email,))
+        novo_usuario = cur.fetchone()
+        cur.close()
+
+        if novo_usuario:
+            notificar_usuario(novo_usuario[0], "Seu cadastro foi concluído com sucesso!")
+
         cur.close()
 
         flash('Cadastro realizado com sucesso! Faça o login.', 'success')
@@ -242,7 +273,6 @@ def excluir_quarto(id):
     flash('Quarto excluído com sucesso!', 'success')
     return redirect(url_for('quartos'))
 
-# ----------------- RESERVAS -----------------
 @app.route('/reservas', methods=['GET','POST'])
 @login_required
 def reservas():
@@ -317,6 +347,22 @@ def add_reserva():
         cur.execute("INSERT INTO reserva (hos_id, quarto_id, checkin, checkout, total) VALUES (%s,%s,%s,%s,%s)",
                     (hos_id, quarto_id, checkin, checkout, total))
         mysql.connection.commit()
+        
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT email, nome FROM hospede WHERE id=%s", (hos_id,))
+        hospede = cur.fetchone()
+        cur.close()
+
+        if hospede:
+            email_hospede, nome_hospede = hospede
+            enviar_email(
+                destinatario=email_hospede,
+                assunto="Confirmação da Reserva",
+                corpo=f"Olá, {nome_hospede}!\n\nSua reserva foi confirmada de {checkin} a {checkout}.\nValor total: R${total:.2f}.\n\nAtenciosamente,\nEquipe do Hotel"
+            )
+
+        notificar_usuario(session['usuario'], f"Reserva confirmada para o quarto {quarto_id}.")
+
         cur.close()
         flash('Reserva adicionada com sucesso!', 'success')
         return redirect(url_for('reservas'))
@@ -406,6 +452,25 @@ def nao_reservados():
     cur.close()
     return render_template('nao_reservados.html', totais=totais)
 
+# ------------- NOTIFICAÇÕES --------------
+def enviar_email(destinatario, assunto, corpo):
+    try:
+        msg = Message(assunto, recipients=[destinatario])
+        msg.body = corpo
+        mail.send(msg)
+        print(f"E-mail enviado para {destinatario}")
+    except Exception as e:
+        print("Erro ao enviar e-mail:", e)
+
+def notificar_usuario(usuario_id, mensagem):
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO notificacoes (usuario_id, mensagem) VALUES (%s, %s)", (usuario_id, mensagem))
+    mysql.connection.commit()
+    cur.close()
+
+
+
 # ----------------- RODAR -----------------
+#ELITON E WESLEY - SEMPRE DEIXAR ESSE BLOCO NO FINAL!!! 
 if __name__ == '__main__':
     app.run(debug=True)
