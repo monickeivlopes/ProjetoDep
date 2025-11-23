@@ -1,0 +1,184 @@
+/* ===========================
+   CARTÃO / ÁREA PRINCIPAL
+=========================== */
+.content-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+    max-width: 1200px;
+    margin: 25px auto;
+}
+
+.titulo-pagina {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c2c2c;
+}
+
+/* ===========================
+   BOTÃO VOLTAR
+=========================== */
+.btn-voltar {
+    padding: 8px 18px;
+    background: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.25s ease;
+}
+
+.btn-voltar:hover {
+    background: #0a6bff;
+    transform: scale(1.05);
+    color: #fff;
+}
+
+/* ===========================
+   FILTRO / BUSCA
+=========================== */
+.filtro-box {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    background: #f7f7f7;
+    padding: 18px;
+    border-radius: 10px;
+    align-items: center;
+    border: 1px solid #e1e1e1;
+}
+
+.filtro-box label {
+    font-weight: 600;
+    color: #333;
+}
+
+.filtro-box input,
+.filtro-box select {
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+/* Botão Filtrar */
+.btn-filtrar {
+    padding: 10px 20px;
+    background: #0076ff;
+    color: #fff;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+.btn-filtrar:hover {
+    background: #005ac5;
+    transform: scale(1.05);
+}
+
+/* ===========================
+   BOTÕES: ADICIONAR & RELATÓRIOS
+=========================== */
+.btn-add {
+    display: inline-block;
+    background: #28a745;
+    padding: 12px 24px;
+    margin: 10px 6px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.25s ease;
+}
+
+.btn-add:hover {
+    background: #1f7e37;
+    transform: scale(1.07);
+}
+
+/* ===========================
+   TABELA
+=========================== */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.custom-table thead tr {
+    background: #0a6bff;
+    color: #fff;
+}
+
+.custom-table th,
+.custom-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #dcdcdc;
+    font-size: 15px;
+}
+
+.custom-table tbody tr:nth-child(even) {
+    background: #f5f9ff;
+}
+
+.custom-table tbody tr:hover {
+    background: #e8f1ff;
+}
+
+/* ===========================
+   BOTÃO EXCLUIR
+=========================== */
+.btn-excluir {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+.btn-excluir:hover {
+    background: #b52330;
+    transform: scale(1.07);
+}
+
+/* ===========================
+   RESPONSIVIDADE
+=========================== */
+@media (max-width: 768px) {
+    .titulo-pagina {
+        font-size: 23px;
+    }
+
+    .filtro-box {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    .btn-add {
+        width: 100%;
+        text-align: center;
+    }
+
+    .custom-table th,
+    .custom-table td {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .btn-excluir {
+        width: 100%;
+        text-align: center;
+        margin-top: 6px;
+    }
+}

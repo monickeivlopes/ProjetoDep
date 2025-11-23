@@ -1,42 +1,36 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciamento de Hóspedes</title>
-    <link rel="stylesheet" href="static/hospede.css">
-<body>
-    <div class="menu">
-        <a href="{{ url_for('hospedes') }}">Hóspedes</a>
-        <a href="{{ url_for('quartos') }}">Hospedagens</a>
-        <a href="{{ url_for('reservas') }}">Reservas</a>
-        <a href="{{ url_for('logout') }}" style="background-color: var(--cor-acento);">Logout</a>
+{% extends 'base.html' %}
 
+{% block title %}Hóspedes - The Hotelaria{% endblock %}
+
+{% block content %}
+
+<div class="content-card">
+
+    <div class="head d-flex justify-content-between align-items-center mb-3">
+        <h2 class="titulo-pagina">Gerenciamento de Hóspedes</h2>
+        <a href="{{ url_for('index') }}" class="btn-voltar">Voltar</a>
     </div>
-    <div class="container">
-        <div class="head">
-            <h1>Gerenciamento de Hóspedes</h1>
-            <a href="{{ url_for('index') }}">Página Inicial</a>
-            </div>
-        
 
-        <form method="GET" action="{{ url_for('hospedes') }}">
-            <label for="nome">Filtrar por nome (ou inicial):</label>
-            <input type="text" name="nome" id="nome" placeholder="Nome ou inicial do hóspede" value="{{ request.args.get('nome', '') }}">
-            
-        </br>
-            <label for="ordenar">Ordenar por nome:</label><br>
-            <select name="ordenar" id="ordenar">
-                <option value="asc" {% if request.args.get('ordenar') == 'asc' %}selected{% endif %}>Crescente</option>
-                <option value="desc" {% if request.args.get('ordenar') == 'desc' %}selected{% endif %}>Decrescente</option>
-            </select>
-            
-            <button type="submit">Filtrar</button>
-            
-        </form>
-        <div><a id="adicionar" href="/add_hospede">Adicionar Hóspede</a></div>
-        <table>
-            
+    <form method="GET" action="{{ url_for('hospedes') }}" class="filtro-box">
+        <label for="nome">Filtrar por nome:</label>
+        <input type="text" name="nome" id="nome" placeholder="Digite um nome" 
+               value="{{ request.args.get('nome', '') }}">
+
+        <label for="ordenar">Ordenar por nome:</label>
+        <select name="ordenar" id="ordenar">
+            <option value="asc" {% if request.args.get('ordenar') == 'asc' %}selected{% endif %}>Crescente</option>
+            <option value="desc" {% if request.args.get('ordenar') == 'desc' %}selected{% endif %}>Decrescente</option>
+        </select>
+
+        <button type="submit" class="btn-filtrar">Aplicar Filtro</button>
+    </form>
+
+    <div class="text-center">
+        <a id="adicionar" href="/add_hospede" class="btn-add">Adicionar Hóspede</a>
+    </div>
+
+    <div class="table-responsive mt-4">
+        <table class="custom-table">
             <thead>
                 <tr>
                     <th>ID</th> 
@@ -47,6 +41,7 @@
                     <th>Ações</th>
                 </tr>
             </thead>
+
             <tbody>
                 {% for hospede in hospedes %}
                 <tr>
@@ -56,13 +51,20 @@
                     <td>{{ hospede[3] }}</td>
                     <td>{{ hospede[4] }}</td>
                     <td>
-                        <a href="/edit_hospede/{{ hospede[0] }}" >Editar</a>
-                        <a href="{{ url_for('excluir_hospede', id=hospede[0]) }}" onclick="return confirm('Tem certeza que deseja excluir este hóspede?');">Excluir</a>
+                        <a href="/edit_hospede/{{ hospede[0] }}" class="btn-acao editar">Editar</a>
+                        <a href="{{ url_for('excluir_hospede', id=hospede[0]) }}" 
+                           onclick="return confirm('Tem certeza que deseja excluir este hóspede?');" 
+                           class="btn-acao excluir">
+                           Excluir
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
+
         </table>
     </div>
-</body>
-</html>
+
+</div>
+
+{% endblock %}

@@ -25,12 +25,14 @@ mysql = MySQL(app)
 
 # --- Configuração pra enviar os emails ---
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587  
+app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = 'lopes.monicke@escolar.ifrn.edu.br'
-app.config['MAIL_PASSWORD'] = 'cczfwloxqyyaiuxd'  
-app.config['MAIL_DEFAULT_SENDER'] = ('The Hotelaria', 'lopes.monicke@escolar.ifrn.edu.br')
+app.config['MAIL_USERNAME'] = 'lopesmonicke@gmail.com'
+app.config['MAIL_PASSWORD'] = 'pzuuuleqwjlivpoc'  
+
+# Remetente padrão
+app.config['MAIL_DEFAULT_SENDER'] = 'lopesmonicke@gmail.com'
+
 
 mail = Mail(app)
 

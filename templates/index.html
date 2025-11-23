@@ -3,7 +3,14 @@
 {% block title %}Início - The Hotelaria{% endblock %}
 
 {% block content %}
-<div class="imagem text-center">
-    <img src="{{ url_for('static', filename='foto-inicial.jpg') }}" alt="Imagem do Hotel" class="img-fluid">
+
+<div class="hero">
+    <div class="hero-overlay"></div>
+    <img src="{{ url_for('static', filename='foto-inicial.jpg') }}" class="hero-img">
+    <div class="hero-text">
+        <h1>Bem-vindo ao The Hotelaria</h1>
+        <p>Sistema moderno e intuitivo para gestão de hotéis.</p>
+    </div>
 </div>
+
 {% endblock %}

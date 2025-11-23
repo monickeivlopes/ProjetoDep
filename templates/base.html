@@ -4,61 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}The Hotelaria{% endblock %}</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='hospede.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='reservas.css') }}">
+
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-    <div class="header">
-        <h1>The Hotelaria</h1>
-        <p>Bem-vindo ao melhor sistema de hóteis!</p>
+    <!-- ==================== HEADER ==================== -->
+    <header class="top-header">
+        <div class="logo">The Hotelaria</div>
 
-        {% if session.get('user_nome') %}
-            <p>Olá, {{ session['user_nome'] }} | <a href="{{ url_for('logout') }}">Sair</a></p>
-        {% else %}
-            <p>
-                <a href="{{ url_for('login') }}" class="btn-header">Login</a> |
-                <a href="{{ url_for('cadastro') }}" class="btn-header">Cadastro</a>
-            </p>
-        {% endif %}
-    </div>
+        <nav class="nav">
+            <a href="{{ url_for('hospedes') }}">Hóspedes</a>
+            <a href="{{ url_for('quartos') }}">Hospedagens</a>
+            <a href="{{ url_for('reservas') }}">Reservas</a>
+        </nav>
 
-
-    <div class="menu">
-        <a href="{{ url_for('hospedes') }}">Hóspedes</a>
-        <a href="{{ url_for('quartos') }}">Hospedagens</a>
-        <a href="{{ url_for('reservas') }}">Reservas</a>
-    </div>
-
-
-    {% with mensagens = get_flashed_messages(with_categories=True) %}
-      {% if mensagens %}
-        <div class="container mt-3">
-          {% for categoria, msg in mensagens %}
-            <div class="alert alert-{{ categoria }} alert-dismissible fade show" role="alert">
-              {{ msg }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          {% endfor %}
+        <div class="user-area">
+            {% if session.get('user_nome') %}
+                <span>Olá, {{ session['user_nome'] }}</span>
+                <a href="{{ url_for('logout') }}" class="btn-small">Sair</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn-small">Login</a>
+                <a href="{{ url_for('cadastro') }}" class="btn-small btn-outline">Cadastro</a>
+            {% endif %}
         </div>
-      {% endif %}
-    {% endwith %}
+    </header>
 
-
-    {% if session.get('notificacoes') %}
-      <div class="container mt-2">
-        {% for n in session['notificacoes'] %}
-          <div class="alert alert-info alert-dismissible fade show" role="alert">
-            {{ n[2] }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-        {% endfor %}
-      </div>
-    {% endif %}
-
-    <div class="container mt-4">
-        {% block content %}{% endblock %}
+    <!-- ==================== FLASH MESSAGES ==================== -->
+    <div class="container mt-3">
+        {% with mensagens = get_flashed_messages(with_categories=True) %}
+            {% if mensagens %}
+                {% for categoria, msg in mensagens %}
+                    <div class="alert alert-{{ categoria }} alert-dismissible fade show">
+                        {{ msg }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </div>
+
+    <!-- ==================== CONTEÚDO ==================== -->
+    <main class="page-content">
+        {% block content %}{% endblock %}
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -1,191 +1,184 @@
+/* ===========================
+   VARIÁVEIS GLOBAIS
+=========================== */
 :root {
-    --cor-primaria: #020202;  
-    --cor-secundaria: #808080;
-    --cor-texto: #ffffff;
-    --cor-fundo: #e9ecef; 
-    --cor-hover: #616161; 
-    --cor-acento: #222222;
+    --cor-primaria: #1F496C;
+    --cor-secundaria: #f4f4f4;
+    --cor-acento: #0078B7;
+    --texto: #222;
+    --branco: #fff;
 }
 
-
+/* ===========================
+   ESTILOS GERAIS
+=========================== */
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--cor-fundo);
-    color: var(--cor-secundaria);
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: var(--cor-secundaria);
+    color: var(--texto);
 }
 
-
-h1 {
-    font-size: 2rem;
-    color: var(--cor-primaria);
-    margin-bottom: 20px;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 900px;
-    width: 100%;
-    background-color: var(--cor-texto);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.container label {
-    font-size: 1rem;
-    color: var(--cor-secundaria);
-}
-
-.container input, .container select {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid var(--cor-secundaria);
-    border-radius: 8px;
-    background-color: var(--cor-fundo);
-    color: var(--cor-acento);
-    width: 90%;
-}
-
-.container input:focus, .container select:focus {
-    outline: none;
-    border-color: var(--cor-primaria);
-    box-shadow: 0px 0px 4px var(--cor-primaria);
-}
-
-.container button {
-    background-color: var(--cor-primaria);
-    color: var(--cor-texto);
-    border: none;
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 10%;
-}
+/* ===========================
+   MENU SUPERIOR
+=========================== */
 .menu {
+    background: var(--cor-primaria);
+    padding: 12px 20px;
     display: flex;
-    justify-content: center;
-    background-color: var(--cor-primaria);
-    padding: 15px 0;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    margin-bottom: 20px;
+    gap: 20px;
 }
 
 .menu a {
-    color: var(--cor-texto);
+    color: var(--branco);
     text-decoration: none;
-    font-size: 1.2rem;
-    margin: 0 15px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    padding: 8px 15px;
-    border-radius: 30px;
-    background-color: var(--cor-hover);
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .menu a:hover {
-    background-color: var(--cor-acento);
-    color: var(--cor-secundaria);
-    transform: scale(1.1);
+    text-decoration: underline;
 }
 
-.container button:hover {
-    background-color: var(--cor-acento);
-    color: var(--cor-texto);
-    transform: scale(1.05);
+/* ===========================
+   CONTAINER PRINCIPAL
+=========================== */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
 }
 
-.head{
+/* Cabeçalho */
+.head {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
-    margin-left: 5%;
 }
-.container a {
-    color: var(--cor-texto);
-    font-size: 1rem;
+
+.head h1 {
+    margin: 0;
+}
+
+.head a {
+    color: var(--cor-acento);
     text-decoration: none;
-    transition: color 0.3s ease;
-    margin-top:10px ;
+    font-weight: bold;
 }
 
-.container a:hover {
-    color: var(--cor-primaria);
+.head a:hover {
+    text-decoration: underline;
 }
 
+/* ===========================
+   FORMULÁRIO DE FILTRO
+=========================== */
+form {
+    margin-top: 20px;
+    padding: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
 
-div a {
+input, select {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: var(--cor-acento);
+    color: white;
+    padding: 9px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #005f8a;
+}
+
+/* ===========================
+   BOTÃO ADICIONAR HÓSPEDE
+=========================== */
+#adicionar {
     display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: var(--cor-secundaria);
-    color: var(--cor-texto);
-    text-decoration: none;
-    border-radius: 25px;
-    margin-top: 15px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-div a:hover {
-    background-color: var(--cor-hover);
-    transform: scale(1.05);
-}
-
-
-table {
-    width: 100%;
-    max-width: 1000px;
-    margin-top: 30px;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 12px;
-    text-align: left;
-    border: 1px solid var(--cor-secundaria);
-    font-size: 1rem;
-}
-
-th {
-    background-color: var(--cor-primaria);
-    color: var(--cor-texto);
-}
-
-td {
-    background-color: var(--cor-fundo);
-    color: var(--cor-secundaria);
-}
-
-tr:hover {
-    background-color: var(--cor-acento);
-    color: var(--cor-texto);
-}
-
-a {
-    
+    margin-top: 20px;
+    margin-bottom: 15px;
+    background: var(--cor-acento);
+    padding: 10px 18px;
+    border-radius: 5px;
     color: white;
     text-decoration: none;
     font-weight: bold;
-    transition: color 0.3s ease;
 }
 
-a:hover {
-    color: var(--cor-acento);
+#adicionar:hover {
+    background: #005c87;
 }
 
-#adicionar{
-    align-self: center;
-    margin-left: 40%;
+/* ===========================
+   TABELA
+=========================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
 }
 
+table th {
+    background: var(--cor-primaria);
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+table td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+table tr:hover {
+    background: #f1f1f1;
+}
+
+/* Links de ação */
+td a {
+    background: var(--cor-acento);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+td a:hover {
+    background: #005c87;
+}
+
+/* ===========================
+   RESPONSIVIDADE
+=========================== */
+@media (max-width: 768px) {
+    form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #adicionar {
+        width: 100%;
+        text-align: center;
+    }
+
+    td a {
+        display: block;
+        margin-bottom: 5px;
+    }
+}

@@ -15,9 +15,10 @@ body {
     line-height: 1.6;
 }
 
-
+/* ---------------- CONTAINER ---------------- */
 .container {
     max-width: 600px;
+    width: 90%;
     margin: 50px auto;
     padding: 17px;
     background-color: var(--cor-texto);
@@ -26,15 +27,11 @@ body {
     text-align: center;
 }
 
-
 .container h1 {
     font-size: 2rem;
     color: var(--cor-primaria);
     margin-bottom: 20px;
 }
-
-
-
 
 .container a:hover {
     background-color: var(--cor-hover);
@@ -44,34 +41,37 @@ body {
 .container label {
     color: var(--cor-primaria);
 }
+
 .container p {
     color: red;
     font-size: 1rem;
     margin-bottom: 20px;
 }
 
-.head{
+/* ---------------- HEADER / VOLTAR ---------------- */
+.head {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 90%;
     margin-left: 5%;
+    flex-wrap: wrap;
 }
+
 .head a {
     display: inline-block;
     margin-bottom: 20px;
-    margin-top:20px ;
+    margin-top: 20px;
     padding: 10px 20px;
     background-color: var(--cor-secundaria);
     color: var(--cor-texto);
     text-decoration: none;
     border-radius: 25px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 10%;
-    height: 5%;
+    transition: 0.3s ease;
+    width: auto;
 }
 
-
+/* ---------------- FORM ---------------- */
 form {
     display: flex;
     flex-direction: column;
@@ -81,7 +81,6 @@ form {
 label {
     font-weight: bold;
     text-align: left;
-    margin-bottom: 5px;
     color: var(--cor-secundaria);
 }
 
@@ -100,18 +99,17 @@ input:focus {
     box-shadow: 0px 0px 4px var(--cor-primaria);
 }
 
-
+/* ---------------- BUTTON ---------------- */
 button {
     background-color: var(--cor-primaria);
     color: var(--cor-texto);
     border: none;
-    padding: 10px 10px;
+    padding: 15px;
     font-size: 1rem;
     border-radius: 25px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    height: 60px;
-    width: 590px;
+    transition: 0.3s ease;
+    width: 100%;
 }
 
 button:hover {
@@ -120,5 +118,84 @@ button:hover {
     transform: scale(1.05);
 }
 
+/* ===================================================== */
+/* =================== RESPONSIVIDADE =================== */
+/* ===================================================== */
 
+/* ----------- Tablets (até 1024px) ----------- */
+@media (max-width: 1024px) {
+    .container {
+        width: 85%;
+    }
 
+    .head {
+        justify-content: center;
+        gap: 10px;
+    }
+}
+
+/* ----------- Celulares médios (até 768px) ----------- */
+@media (max-width: 768px) {
+
+    .container {
+        width: 92%;
+    }
+
+    .container h1 {
+        font-size: 1.7rem;
+    }
+
+    .head {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .head a {
+        width: 70%;
+        text-align: center;
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
+/* ----------- Celulares pequenos (até 480px) ----------- */
+@media (max-width: 480px) {
+
+    body {
+        padding: 5px;
+    }
+
+    .container {
+        padding: 15px;
+        width: 96%;
+    }
+
+    .container h1 {
+        font-size: 1.5rem;
+    }
+
+    .head a {
+        width: 100%;
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    label {
+        font-size: 0.9rem;
+    }
+
+    input {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+}
