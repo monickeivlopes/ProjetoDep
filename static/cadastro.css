@@ -1,0 +1,111 @@
+/* ===========================
+   RESET E VARIÁVEIS
+=========================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --cor-primaria: #020202;
+  --cor-secundaria: #0d6efd;
+  --cor-texto: #f1f1f1;
+
+  --cor-btn-voltar: #6c757d;
+  --cor-btn-voltar-hover: #5a6268;
+
+  --cor-card-bg: #ffffff;
+  --cor-card-texto: #333333;
+
+  --cor-btn-primario: #020202;
+  --cor-btn-primario-hover: #333333;
+}
+
+/* ===========================
+   BODY
+=========================== */
+
+body {
+  background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+  font-family: 'Poppins', sans-serif;
+  color: var(--cor-texto);
+}
+
+/* ===========================
+   BOTÃO VOLTAR
+=========================== */
+
+.voltar-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.btn-voltar {
+  background-color: var(--cor-btn-voltar);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.btn-voltar:hover {
+  background-color: var(--cor-btn-voltar-hover);
+  transform: scale(1.05);
+}
+
+/* ===========================
+   CARD (MESMAS CLASSES DO HTML)
+=========================== */
+
+.card {
+  background-color: var(--cor-card-bg);
+  color: var(--cor-card-texto);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card h3 {
+  font-weight: 600;
+}
+
+/* Inputs */
+.form-control {
+  border-radius: 12px;
+}
+
+/* ===========================
+   BOTÃO PRINCIPAL (Bootstrap override)
+=========================== */
+
+.btn-primary {
+  background-color: var(--cor-btn-primario) !important;
+  border: none;
+  border-radius: 30px;
+  padding: 10px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--cor-btn-primario-hover) !important;
+  transform: scale(1.03);
+}
+
+/* ===========================
+   LINK FINAL
+=========================== */
+
+.text-link a {
+  color: var(--cor-secundaria);
+  text-decoration: none;
+}
+
+.text-link a:hover {
+  text-decoration: underline;
+}
