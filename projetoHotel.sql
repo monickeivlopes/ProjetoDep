@@ -70,3 +70,6 @@ CREATE TABLE notificacoes (
     data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
+
+
+--- login ADMIN: admin@hotel.com SENHA: admin123 ----
