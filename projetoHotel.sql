@@ -71,5 +71,19 @@ CREATE TABLE notificacoes (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
 
+select * from usuarios;
 
---- login ADMIN: admin@hotel.com SENHA: admin123 ----
+DELETE FROM notificacoes
+WHERE usuario_id = (
+  SELECT id FROM usuarios
+  WHERE nome = 'Monicke' AND email = 'monickelara@icloud.com'
+);
+
+DELETE FROM usuarios
+WHERE nome = 'Monicke'
+  AND email = 'monickelara@icloud.com'
+LIMIT 1;
+
+
+
+

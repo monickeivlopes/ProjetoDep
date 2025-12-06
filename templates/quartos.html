@@ -1,67 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciamento de Quartos</title>
-    <link rel="stylesheet" href="static/quartos.css">
-</head>
-<body>
-    <div class="menu">
-        <a href="{{ url_for('hospedes') }}">Hóspedes</a>
-        <a href="{{ url_for('quartos') }}">Hospedagens</a>
-        <a href="{{ url_for('reservas') }}">Reservas</a>
-        <a href="{{ url_for('logout') }}" style="background-color: var(--cor-acento);">Logout</a>
+{% extends 'base.html' %}
 
-    </div>
-    <div class="container">
-        <div class="head"><h1>Gerenciamento de Quartos</h1>
-            <a href="{{ url_for('index') }}">Página Inicial</a></div>
-        
-        <form method="GET" action="{{ url_for('quartos') }}">
-            <label for="nome">Filtrar por numero do quarto:</label>
-            <input type="text" name="numero" id="numero" placeholder="Número do quarto" value="{{ request.args.get('numero', '') }}">
-            
-            <label for="ordenar">Ordenar por:</label>
-            <select name="ordenar" id="ordenar">
-                <option value="asc" {% if request.args.get('ordenar') == 'asc' %}selected{% endif %}>Crescente</option>
-                <option value="desc" {% if request.args.get('ordenar') == 'desc' %}selected{% endif %}>Decrescente</option>
-            </select>
-            
-            <button type="submit">Filtrar</button>
-             <br>
-    </div>
-    <div>
-        <br>
-        
-        <a href="{{ url_for('add_quartos')}} ">Adicionar quarto</a>
+{% block title %}Gerenciamento de Quartos - The Hotelaria{% endblock %}
+
+{% block content %}
+
+<div class="content-card">
+
+    <div class="head d-flex justify-content-between align-items-center mb-3">
+        <h2 class="titulo-pagina">Gerenciamento de Quartos</h2>
+        <a href="{{ url_for('index') }}" class="btn-voltar">Voltar</a>
     </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Número</th> <br>
-                <th>Tipo</th>
-                <th>Preço</th>
-                <th>Capacidade</th>
-                <th>Decrição</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for quarto in quartos %}
-            <tr>
-                <td>{{ quarto[1] }}</td>
-                <td>{{ quarto[2] }}</td>
-                <td>{{ quarto[3] }}</td>
-                <td>{{ quarto[4] }}</td>
-                <td>{{ quarto[5] }}</td>
-                <td><a href="{{ url_for('excluir_quarto', id=quarto[0]) }}" onclick="return confirm('Tem certeza que deseja excluir este quarto?');">Excluir</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    
+    <!-- FILTRO -->
+    <form method="GET" action="{{ url_for('quartos') }}" class="filtro-box">
+        <label for="numero">Filtrar por número do quarto:</label>
+        <input type="text" name="numero" id="numero" placeholder="Número do quarto" 
+               value="{{ request.args.get('numero', '') }}">
 
-</body>
-</html>
+        <label for="ordenar">Ordenar por:</label>
+        <select name="ordenar" id="ordenar">
+            <option value="asc" {% if request.args.get('ordenar')=='asc' %}selected{% endif %}>Crescente</option>
+            <option value="desc" {% if request.args.get('ordenar')=='desc' %}selected{% endif %}>Decrescente</option>
+        </select>
+
+        <button type="submit" class="btn-filtrar">Filtrar</button>
+    </form>
+
+    <div class="text-center">
+        <a href="{{ url_for('add_quartos')}}" class="btn-add">Adicionar Quarto</a>
+    </div>
+
+    <h3 class="mt-4 titulo-tabela">Quartos Cadastrados</h3>
+
+    <div class="table-responsive mt-3">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Tipo</th>
+                    <th>Preço</th>
+                    <th>Capacidade</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if quartos %}
+                {% for quarto in quartos %}
+                <tr>
+                    <td>{{ quarto[1] }}</td>
+                    <td>{{ quarto[2] }}</td>
+                    <td>R$ {{ quarto[3] }}</td>
+                    <td>{{ quarto[4] }} Pessoas</td>
+                    <td>{{ quarto[5] }}</td>
+                    <td>
+                        <form action="{{ url_for('excluir_quarto', id=quarto[0]) }}" method="POST" 
+                              onsubmit="return confirm('Deseja excluir este quarto?');">
+                            <button class="btn-excluir">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">Nenhum quarto encontrado.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

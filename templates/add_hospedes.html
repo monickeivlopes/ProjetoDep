@@ -7,6 +7,33 @@
     <link rel="stylesheet" href="static/add_hospedes.css">
 </head>
 <body>
+<!-- Modal Sucesso -->
+<div id="modalSucesso" class="modal">
+    <div class="modal-content modal-success">
+        <h2>✔ Cadastro realizado com sucesso!</h2>
+        <p>O hóspede foi adicionado ao sistema.</p>
+        <button onclick="fecharModal('modalSucesso')">Fechar</button>
+    </div>
+</div>
+
+<!-- Modal Erro -->
+<div id="modalErro" class="modal">
+    <div class="modal-content modal-error">
+        <h2>✖ Ocorreu um erro!</h2>
+        <p>Verifique os dados e tente novamente.</p>
+        <button onclick="fecharModal('modalErro')">Fechar</button>
+    </div>
+</div>
+
+<script>
+function abrirModal(id) {
+    document.getElementById(id).style.display = "flex";
+}
+function fecharModal(id) {
+    document.getElementById(id).style.display = "none";
+}
+</script>
+
     <div class="container">
         <div class="head">
         <h1>Adicionar Hóspede</h1>
@@ -31,5 +58,6 @@
             <button type="submit">Adicionar Hóspede</button>
         </form>
     </div>
+
 </body>
 </html>

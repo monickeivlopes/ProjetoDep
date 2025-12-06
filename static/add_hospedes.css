@@ -1,201 +1,187 @@
+/* ===========================
+   VARIÁVEIS GLOBAIS
+=========================== */
 :root {
-    --cor-primaria: #020202;  
-    --cor-secundaria: #808080;
-    --cor-texto: #ffffff;
-    --cor-fundo: #e9ecef; 
-    --cor-hover: #616161; 
-    --cor-acento: #222222;
+    --cor-primaria: #1F496C;
+    --cor-secundaria: #f4f4f4;
+    --cor-acento: #0078B7;
+    --texto: #222;
+    --branco: #fff;
+    --sucesso: #28a745;
+    --erro: #d9534f;
 }
 
+/* ===========================
+   BASE GERAL
+=========================== */
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--cor-fundo);
-    color: var(--cor-secundaria);
-    line-height: 1.6;
+    font-family: "Poppins", sans-serif;
+    background: var(--cor-secundaria);
+    color: var(--texto);
 }
 
-/* ---------------- CONTAINER ---------------- */
+/* Container */
 .container {
-    max-width: 600px;
     width: 90%;
+    max-width: 700px;
+    background: var(--branco);
     margin: 50px auto;
-    padding: 17px;
-    background-color: var(--cor-texto);
-    border-radius: 15px;
-    box-shadow: 0px 4px 8px rgba(185, 180, 180, 0.795);
-    text-align: center;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.12);
+    animation: fadeIn 0.6s ease;
 }
 
-.container h1 {
-    font-size: 2rem;
-    color: var(--cor-primaria);
-    margin-bottom: 20px;
-}
-
-.container a:hover {
-    background-color: var(--cor-hover);
-    transform: scale(1.05);
-}
-
-.container label {
-    color: var(--cor-primaria);
-}
-
-.container p {
-    color: red;
-    font-size: 1rem;
-    margin-bottom: 20px;
-}
-
-/* ---------------- HEADER / VOLTAR ---------------- */
+/* Título e botão */
 .head {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
-    margin-left: 5%;
-    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.head h1 {
+    margin: 0;
+    font-size: 28px;
+    color: var(--cor-primaria);
+    font-weight: 700;
+    animation: slideDown 0.6s ease;
 }
 
 .head a {
-    display: inline-block;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: var(--cor-secundaria);
-    color: var(--cor-texto);
+    background: var(--cor-acento);
+    color: white;
+    padding: 9px 16px;
+    border-radius: 6px;
     text-decoration: none;
-    border-radius: 25px;
-    transition: 0.3s ease;
-    width: auto;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
-/* ---------------- FORM ---------------- */
+.head a:hover {
+    background: #005f8a;
+    transform: scale(1.05);
+}
+
+/* ===========================
+   FORM
+=========================== */
 form {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    animation: fadeIn 0.8s ease;
 }
 
 label {
-    font-weight: bold;
-    text-align: left;
-    color: var(--cor-secundaria);
+    font-weight: 600;
+    color: var(--cor-primaria);
 }
 
-input {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid var(--cor-secundaria);
-    border-radius: 8px;
-    background-color: var(--cor-fundo);
-    color: var(--cor-acento);
+input, select {
+    padding: 12px;
+    border-radius: 7px;
+    border: 1px solid #cfcfcf;
+    font-size: 16px;
+    transition: 0.3s;
+    background: #ffffff;
 }
 
-input:focus {
+input:focus, select:focus {
+    border-color: var(--cor-acento);
+    box-shadow: 0 0 8px rgba(0,120,183,0.4);
+    transform: scale(1.02);
     outline: none;
-    border-color: var(--cor-primaria);
-    box-shadow: 0px 0px 4px var(--cor-primaria);
 }
 
-/* ---------------- BUTTON ---------------- */
+/* Botão de ação */
 button {
-    background-color: var(--cor-primaria);
-    color: var(--cor-texto);
+    background: var(--cor-acento);
+    color: white;
+    padding: 13px;
     border: none;
-    padding: 15px;
-    font-size: 1rem;
-    border-radius: 25px;
+    border-radius: 6px;
+    font-size: 17px;
     cursor: pointer;
-    transition: 0.3s ease;
-    width: 100%;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: 0.3s;
 }
 
 button:hover {
-    background-color: var(--cor-acento);
-    color: var(--cor-secundaria);
-    transform: scale(1.05);
+    background: #005c87;
+    transform: scale(1.04);
 }
 
-/* ===================================================== */
-/* =================== RESPONSIVIDADE =================== */
-/* ===================================================== */
-
-/* ----------- Tablets (até 1024px) ----------- */
-@media (max-width: 1024px) {
-    .container {
-        width: 85%;
-    }
-
-    .head {
-        justify-content: center;
-        gap: 10px;
-    }
+/* ===========================
+   MODAL DE ALERTA
+=========================== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s ease;
 }
 
-/* ----------- Celulares médios (até 768px) ----------- */
-@media (max-width: 768px) {
-
-    .container {
-        width: 92%;
-    }
-
-    .container h1 {
-        font-size: 1.7rem;
-    }
-
-    .head {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .head a {
-        width: 70%;
-        text-align: center;
-        padding: 10px;
-        font-size: 0.95rem;
-    }
-
-    button {
-        width: 100%;
-    }
+.modal-content {
+    background: var(--branco);
+    padding: 25px;
+    width: 90%;
+    max-width: 450px;
+    border-radius: 10px;
+    text-align: center;
+    animation: zoomIn 0.4s ease;
 }
 
-/* ----------- Celulares pequenos (até 480px) ----------- */
-@media (max-width: 480px) {
+.modal-content h2 {
+    margin-bottom: 10px;
+    font-size: 22px;
+    font-weight: bold;
+}
 
-    body {
-        padding: 5px;
-    }
+.modal-success h2 { color: var(--sucesso); }
+.modal-error h2 { color: var(--erro); }
 
-    .container {
-        padding: 15px;
-        width: 96%;
-    }
+.modal-content button {
+    margin-top: 15px;
+    width: 100%;
+    background: var(--cor-primaria);
+    border-radius: 6px;
+}
 
-    .container h1 {
-        font-size: 1.5rem;
-    }
+.modal-content button:hover {
+    background: #003d5e;
+}
 
-    .head a {
-        width: 100%;
-        padding: 12px;
-        font-size: 0.9rem;
-    }
+/* ===========================
+   ANIMAÇÕES
+=========================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-    label {
-        font-size: 0.9rem;
-    }
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-    input {
-        font-size: 0.9rem;
-        padding: 8px;
-    }
+@keyframes zoomIn {
+    from { transform: scale(.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
 
-    button {
-        padding: 12px;
-        font-size: 0.9rem;
-    }
+/* ===========================
+   RESPONSIVO
+=========================== */
+@media (max-width: 600px) {
+    .head { flex-direction: column; gap: 10px; }
+    .head a { width: 100%; text-align: center; }
 }
